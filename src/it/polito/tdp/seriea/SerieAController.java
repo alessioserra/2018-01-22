@@ -5,6 +5,9 @@
 package it.polito.tdp.seriea;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -55,7 +58,11 @@ public class SerieAController {
     	Team squadra = boxSquadra.getValue();
     	Map<Season, Integer> result = model.getSeasonPoints(squadra);
     	
-    	for ( Season s : result.keySet()) {
+    	List<Season> seasons = new ArrayList<>(result.keySet());
+    	
+    	Collections.sort(seasons);
+    	
+    	for ( Season s : seasons ) {
     		txtResult.appendText("Stagione:"+s.getSeason()+" - Punti: "+result.get(s)+"\n");
     	}
     	

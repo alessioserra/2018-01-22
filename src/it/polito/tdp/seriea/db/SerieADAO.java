@@ -76,7 +76,7 @@ public class SerieADAO {
 			
 			while (res.next()) {
 				
-				//Primo giro per ogni stagione
+				//Primo giro per ogni stagione (Stagione esiste)
 				if (!puntiClassifica.containsKey(season)) puntiClassifica.put(season, 0);
 				
 				if ( res.getString("HomeTeam").equals(squadra) && res.getString("result").equals("H") )
