@@ -5,7 +5,7 @@ public class Season {
 	private String description;
 
 	public Season(int season, String description) {
-		super();
+
 		this.season = season;
 		this.description = description;
 	}
