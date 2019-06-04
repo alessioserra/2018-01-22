@@ -79,8 +79,9 @@ public class SerieADAO {
 				//Primo giro per ogni stagione
 				if (!puntiClassifica.containsKey(season)) puntiClassifica.put(season, 0);
 				
-				if ( res.getString("HomeTeam").equals(squadra) && res.getString("result").equals("H") ) {
+				if ( res.getString("HomeTeam").equals(squadra) && res.getString("result").equals("H") )
 					puntiClassifica.replace(season, puntiClassifica.get(season)+3);
+					
 				
 				if ( res.getString("AwayTeam").equals(squadra) && res.getString("result").equals("A") )
 					puntiClassifica.replace(season, puntiClassifica.get(season)+3);
@@ -88,7 +89,7 @@ public class SerieADAO {
 				if ( res.getString("result").equals("D"))
 					puntiClassifica.replace(season, puntiClassifica.get(season)+1);		
 				}
-			}
+				
 
 			conn.close();
 	
