@@ -1,16 +1,14 @@
 package it.polito.tdp.seriea.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
-import org.jgrapht.alg.shortestpath.TreeSingleSourcePathsImpl;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
-
 import it.polito.tdp.seriea.db.SerieADAO;
 
 public class Model {
@@ -19,6 +17,8 @@ public class Model {
 	List<Season> seasons = new ArrayList<>();
 	private Team squadraSelezionata;
 	private Map<Season, Integer> puntiClassifica;
+	List<Season> migliori;
+	List<Season> stagioni = new ArrayList<>();
 	
 	double bestPeso;
 	
@@ -121,6 +121,67 @@ public class Model {
 		
 		//Ritorno il miglior best
 		return best;
+	}
+	
+	public List<Season> ricorsione(){
+		
+		//Azzero tutto
+		migliori = new ArrayList<>();
+		List<Season> parziale = new ArrayList<>();
+		stagioni.clear();
+		
+		//Ordino stagioni
+		for ( Season s : this.grafo.vertexSet() ) {
+			stagioni.add(s);
+		}
+		
+		Collections.sort(stagioni);
+		
+		//Avvio ricorsione
+		sub_ricorsione(parziale);
+		
+		return migliori;
+		
+	}
+	
+	public void sub_ricorsione(List<Season> parziale) {
+		
+		//Condizione di terminazione (Lunghezza massima)
+		if ( parziale.size() > migliori.size() ){
+			
+			//Assegno il migliore
+			migliori = new ArrayList<>(parziale);	
+		
+		}
+		
+		//Casi intermedi
+		for (Season s : stagioni) {
+				
+			if ( controllo(parziale, s) == true ) {
+			
+			parziale.add(s);
+			sub_ricorsione(parziale);
+			parziale.remove(s);
+			
+			}	
+			else return;
+
+		}	
+		
+	}
+	
+	public boolean controllo(List<Season> parziale, Season s) {
+		
+		//Primo giro
+		if ( parziale.size()==0 ) return true;
+		
+		//Prendo ultimo elemento
+		Season ultimo = parziale.get(parziale.size()-1);
+		
+		if ( puntiClassifica.get(s) > puntiClassifica.get(ultimo) ) return true;
+		
+		else return false;
+		
 	}
 	
 }

@@ -84,7 +84,7 @@ public class Season implements Comparable<Season>{
 
 	@Override
 	public int compareTo(Season o) {
-		return -(season-o.season);
+		return (season-o.season);
 	}
 
 }

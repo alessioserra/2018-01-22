@@ -77,12 +77,17 @@ public class SerieAController {
     	model.creaGrafo();
     	Season s = model.getBestAnnata();
     	
-    	txtResult.appendText("\nAnnata d'oro -> "+s.toString()+" , valore peso: "+model.getWeight());
+    	txtResult.appendText("\nAnnata d'oro -> "+s.toString()+" , valore peso: "+model.getWeight()+"\n");
     }
 
     @FXML
     void doTrovaCamminoVirtuoso(ActionEvent event) {
 
+    	List<Season> ricorsione = model.ricorsione();
+    	
+    	for (Season s : ricorsione) txtResult.appendText("\n"+s.toString()); 
+    	
+    	
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
