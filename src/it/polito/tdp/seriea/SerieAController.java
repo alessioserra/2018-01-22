@@ -50,12 +50,15 @@ public class SerieAController {
     @FXML // fx:id="txtResult"
     private TextArea txtResult; // Value injected by FXMLLoader
 
+    Map<Season, Integer> result;
+    
     @FXML
     void doSelezionaSquadra(ActionEvent event) {
 
     	txtResult.clear();
     	
     	Team squadra = boxSquadra.getValue();
+    	
     	Map<Season, Integer> result = model.getSeasonPoints(squadra);
     	
     	List<Season> seasons = new ArrayList<>(result.keySet());
@@ -71,6 +74,10 @@ public class SerieAController {
     @FXML
     void doTrovaAnnataOro(ActionEvent event) {
 
+    	model.creaGrafo();
+    	Season s = model.getBestAnnata();
+    	
+    	txtResult.appendText("\nAnnata d'oro -> "+s.toString()+" , valore peso: "+model.getWeight());
     }
 
     @FXML
